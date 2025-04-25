@@ -10,5 +10,13 @@ const db = mysql.createPool({
     connectionLimit: 10,
     queueLimit: 0 
 });
-
+(async () => {
+    try {
+        const conn = await db.getConnection();
+        console.log('✅ [MySQL] Kết nối thành công!');
+        conn.release(); // Trả lại pool
+    } catch (err) {
+        console.error('❌ [MySQL] Lỗi kết nối:', err.message);
+    }
+})();
 module.exports = db;
